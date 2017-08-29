@@ -3,7 +3,14 @@ package br.com.caelum.agiletickets.models;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.junit.Test;
+
+import junit.framework.Assert;
 
 public class EspetaculoTest {
 
@@ -80,5 +87,27 @@ public class EspetaculoTest {
 
 		return sessao;
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void sessaoComDataFinalMenorQueDataFinal(){
+		Espetaculo espetaculo = new Espetaculo();
+		LocalDate inicio = new LocalDate();
+		LocalDate fim = new LocalDate();
+		LocalTime horario = new LocalTime();
+		Periodicidade periodicidade = Periodicidade.DIARIA;
+		espetaculo.criaSessoes(inicio.plusDays(1), fim, horario, periodicidade);
+	}
+	
+	@Test
+	public void sessaoComDataInicialIgualADataFinal(){
+		Espetaculo espetaculo = new Espetaculo();
+		LocalDate inicio = new LocalDate();
+		LocalDate fim = new LocalDate();
+		LocalTime horario = new LocalTime();
+		Periodicidade periodicidade = Periodicidade.DIARIA;
+		List<Sessao> sessoes = espetaculo.criaSessoes(inicio, fim, horario, periodicidade);
+		Assert.assertEquals(1, sessoes.size());
+	}
+	
 	
 }

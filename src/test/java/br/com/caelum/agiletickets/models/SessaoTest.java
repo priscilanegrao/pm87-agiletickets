@@ -39,7 +39,6 @@ public class SessaoTest {
 		
 		boolean podeReservar = sessao.podeReservar(5);
 		Assert.assertEquals(true, podeReservar);
-	
 	}
 	
 }
